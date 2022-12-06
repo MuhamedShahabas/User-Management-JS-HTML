@@ -44,9 +44,22 @@ const adminVerification = (req, res) => {
 // Dashboard
 const adminDashboard = (req, res) => {
   if (req.session.adminAuth) {
-    const userDetails = User.find({}, (err, Users) => {
-      res.render("adminDashboard", { details: Users });
-    });
+    let search = "";
+    if (req.query.search) {
+      search = req.query.search;
+    }
+
+    const userDetails = User.find(
+      {
+        $or: [
+          { name: { $regex: "^" + search + ".*", $options: "i" } },
+          { email: { $regex: "^" + search + ".*", $options: "i" } },
+        ],
+      },
+      (err, Users) => {
+        res.render("adminDashboard", { details: Users });
+      }
+    ).sort({datefield: -1})
   } else {
     res.redirect("/admin/Signin");
   }
@@ -115,10 +128,10 @@ const adminEdited = async (req, res) => {
         },
       }
     );
-    console.log()
-    res.redirect('/dashboard');
-  } catch(error) {
-    console.log('User edit error: ' + error.message)
+    console.log();
+    res.redirect("/dashboard");
+  } catch (error) {
+    console.log("User edit error: " + error.message);
   }
 };
 
