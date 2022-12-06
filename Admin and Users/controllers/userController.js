@@ -42,12 +42,12 @@ const insertUser = async (req, res) => {
 };
 
 // User verification
-let email;
+let user;
 const userVerification = async (req, res) => {
   try {
-    let email = req.body.userEmail;
+    const email = req.body.userEmail;
     const password = req.body.userPassword;
-    let user = await User.findOne({ email: email });
+    user = await User.findOne({ email: email });
     if (user) {
       if (email == user.email && password == user.password) {
         req.session.userAuth = email;
@@ -75,7 +75,7 @@ const userVerification = async (req, res) => {
 const dashboard = (req, res) => {
   if (req.session.userAuth) {
     res.render("userDashboard", {
-      userMail: email,
+      userMail: user.email
     });
   } else {
     res.redirect("/");
