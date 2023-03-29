@@ -1,6 +1,6 @@
 # User Management CRUD #
 
-A basic user management project made using JavaScript, NodeJs (ExpressJS) and MongoDB (Mongoose) designed by HTML, CSS and Bootstrap 5.
+A basic user management project for applying CRUD operations made using JavaScript, NodeJs (ExpressJS) and MongoDB (Mongoose) designed by HTML, CSS and Bootstrap 5. The view engine used is EJS.
 
 The project consists of two sides:
 
